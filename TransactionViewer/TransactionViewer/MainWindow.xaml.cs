@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Practices.Unity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,17 @@ namespace TransactionViewer
     /// </summary>
     public partial class MainWindow : Window
     {
+        [Dependency]
+        public IMainViewModel ViewModel { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
+
+            this.Loaded += (s, e) =>
+            {
+                this.DataContext = this.ViewModel;
+            };
         }
     }
 }
